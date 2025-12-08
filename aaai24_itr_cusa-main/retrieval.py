@@ -92,7 +92,7 @@ def main(args, config):
 
     # assisant model
     # use sentence transformer to get text softlabel
-    txt_enc_assisant = SentenceTransformer('all-mpnet-base-v2').to(device=device)
+    txt_enc_assisant = SentenceTransformer('thenlper/gte-large').to(device=device)
     if args.distributed:
         txt_enc_assisant = torch.nn.parallel.DistributedDataParallel(txt_enc_assisant, device_ids=[args.gpu])
 
