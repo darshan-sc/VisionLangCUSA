@@ -182,7 +182,7 @@ def sentence2feature_mpnet(model, sentences, device, max_length):
 
 def get_mpnet_model(device):
     from sentence_transformers import SentenceTransformer
-    txt_enc_assisant = SentenceTransformer('thenlper/gte-large').to(device=device)
+    txt_enc_assisant = SentenceTransformer('all-mpnet-base-v2').to(device=device)
     return txt_enc_assisant
 
 def get_model(device, modelName):
