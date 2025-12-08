@@ -1,6 +1,8 @@
 
 # VisionLangCUSA
 
+Original Paper - https://ojs.aaai.org/index.php/AAAI/article/view/29789
+
 ## 1. Install Environment
 
 ```bash
@@ -201,3 +203,60 @@ def get_mpnet_model(device):
 This improves soft-label quality and boosts retrieval performance.
 
 ---
+
+File Description:
+
+## Repository Structure
+
+- `retrieval.py`  
+  Main training + cross-modal retrieval script for CUSA. Loads configs, builds the UNIRE/CUSA model, sets up dataloaders, runs training, and runs image–text retrieval evaluation.
+
+- `evaluation.py`  
+  Computes image–text retrieval metrics (R@1/5/10, r_mean, etc.) for a trained model on Flickr30k/COCO-style datasets.
+
+- `evaluation_eccv.py`  
+  Script to evaluate the model on the ECCV Caption benchmark using COCO annotations and the ECCV caption metrics.
+
+- `evaluation_img.py`  
+  Image-only retrieval / metric-learning evaluation script (Rank-1 accuracy) on datasets like CUB, SOP, InShop, and iNaturalist.
+
+- `evaluation_sts.py`  
+  SentEval-based script for evaluating sentence representations (STS and transfer tasks). Uses the same text encoder as CUSA for downstream sentence embedding benchmarks.
+
+- `utils.py`  
+  Utility functions for distributed training (init, rank/world size helpers), metric logging, and smoothed statistics used during training and evaluation.
+
+- `requirements.txt`  
+  Python dependencies (PyTorch, torchvision, transformers, sentence-transformers, SentEval, etc.) needed to run training and evaluation.
+
+- `configs/`  
+  YAML configuration files defining experiment settings: dataset paths, batch sizes, optimizer and scheduler settings, and model/backbone choices (e.g., `vitb32/flickr/cusa.yaml`).
+
+- `dataset/`  
+  Dataset utilities for cross-modal retrieval (e.g., Flickr30k/COCO). Provides `get_dataset`, `create_sampler`, and `create_loader` used by `retrieval.py`.
+
+- `dataset_evalimg/`  
+  Dataset wrappers for image-only retrieval experiments (CUBirds, Cars, SOP, InShop, iNaturalist). Used by `evaluation_img.py` for Rank-1 evaluations.
+
+- `dataset_example/`  
+  Example / placeholder dataset directory (not required for the core Flickr30k CUSA reproduction, but can be used as a template for custom datasets).
+
+- `json dataset script/`  
+  Contains `dataset_gen.py`, which builds Flickr30k-style JSON files (train/val/test splits) from a raw `captions.txt` file and image folder.
+
+- `clip/`  
+  Local CLIP implementation/wrapper used by some evaluation scripts (e.g., ECCV caption and text-feature baselines).
+
+- `optim/`  
+  Optimizer utilities (e.g., AdamW / SGD factory functions). `retrieval.py` calls `create_optimizer` from here based on the selected config.
+
+- `scheduler/`  
+  Learning-rate scheduler utilities (warmup, cosine, etc.). `retrieval.py` calls `create_scheduler` from here using parameters in the YAML config.
+
+- `unicom script/`  
+  Contains `build_unicom_split.py`, a helper script for generating UniCOM image feature `.npy` files (`*_unicom.npy`) from Flickr30k JSONs and raw images.
+
+- `unire/`  
+  Core UNIRE/CUSA model implementation (vision–language backbone, projection heads, contrastive and soft-label objectives). This is the main model used during training and retrieval evaluation.
+
+
