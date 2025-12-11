@@ -81,8 +81,9 @@ def main(args, config):
     else:
         samplers = [None, None, None]
     # get loader
+    nw = args.num_workers 
     train_loader, val_loader, test_loader = create_loader([train_dataset, val_dataset, test_dataset], samplers, batch_size=[config['batch_size_train'], config[
-        'batch_size_test'], config['batch_size_testall']], num_workers=[16, 16, 16], is_trains=[True, False, False], collate_fns=[None, None, None])
+        'batch_size_test'], config['batch_size_testall']], num_workers=[nw, nw, nw], is_trains=[True, False, False], collate_fns=[None, None, None])
 
     # get distributed model
     model_without_ddp = model
