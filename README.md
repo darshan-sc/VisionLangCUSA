@@ -1,5 +1,5 @@
 
-# VisionLangCUSA
+# Vision & Language - CUSA
 
 Original Paper - https://ojs.aaai.org/index.php/AAAI/article/view/29789
 
