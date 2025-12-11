@@ -23,13 +23,13 @@ You can obtain the dataset JSON files from:
 
 [https://drive.google.com/drive/folders/1z5xDebGm3XYrfjlHV6r_Kl3r5SF23db3](https://drive.google.com/drive/folders/1z5xDebGm3XYrfjlHV6r_Kl3r5SF23db3)
 
-Alternatively, you can generate the JSONs from scratch using:
+Next, you can update the JSONs to appropriate paths using:
 
 ```
 json dataset script/dataset_gen.py
 ```
 
-Images and captions can be downloaded from the official Flickr30k source.
+Images can be downloaded from the official Flickr30k source.
 
 After preparing the dataset, you should have:
 
